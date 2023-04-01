@@ -1,0 +1,4 @@
+Client id:
+5IgkwB4HSraLXqQYAlHQLB6mHXMDW266qQlIjsiJ
+Client secret:
+4M60jIZpyUAspmymCaNdvLtQJeXEg8jzJThVdbRsO4PvFaNOMXPMMle0r5GapfvoFAsSFipFO91qqv2vcWVN71IphTghx51xrLa5zRBh9n397nkdydo1MeqU35S1FqmF
