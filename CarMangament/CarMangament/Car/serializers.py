@@ -2,12 +2,6 @@ from rest_framework import serializers
 from .models import CarName, TripName, CarPassenger, CargoVehicles, Seats, Weight, User
 
 
-def get_image(self, data):
-    if data.image:
-        request = self.context.get('request')
-        return request.build_absolute_uri('/static/%s' % CarName.image.name) if request else ''
-
-
 class CarNameSerializers(serializers.ModelSerializer):
     image = serializers.SerializerMethodField(source='image')
 
@@ -42,7 +36,7 @@ class WeightSerializers(serializers.ModelSerializer):
 class CarPassengerSerializers(serializers.ModelSerializer):
     image = serializers.SerializerMethodField(source='image')
 
-    def get_image(self, CarPassenger):
+    def get_image(self,CarPassenger):
         if CarPassenger.image:
             request = self.context.get('request')
             return request.build_absolute_uri('/static/%s' % CarPassenger.image.name) if request else ''
@@ -73,24 +67,24 @@ class CargoVehiclesSerializers(serializers.ModelSerializer):
 class UserSerializers(serializers.ModelSerializer):
     image = serializers.SerializerMethodField(source='avatar')
 
-    def get_image(self, User):
-        if User.avatar:
+    def get_image(self, user):
+        if user.avatar:
             request = self.context.get('request')
-            return request.build_absolute_uri('/static/%s' % User.avatar.name) if request else ''
+            return request.build_absolute_uri('/static/%s' % user.avatar.name) if request else ''
 
     def create(self, validated_data):
         data = validated_data.copy()
         u = User(**data)
         u.set_password(u.password)
         u.save()
-        return
+        return u
 
     class Meta:
         model = User
-        fields = ['id', 'password', 'first_name', 'last_name', 'avatar', 'image']
+        fields = ['id', 'username', 'password', 'first_name', 'last_name', 'avatar', 'image']
         extra_kwargs = {
-            'avatar' : {'write_only' : True},
-            'password' : {'write_only' : True}
+            'avatar': {'write_only': True},
+            'password': {'write_only': True}
         }
 
 

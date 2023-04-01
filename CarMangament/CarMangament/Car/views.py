@@ -31,13 +31,14 @@ class TripNameViewSet(viewsets.ViewSet, generics.ListAPIView):
     @action(methods=['get'], detail=True,)
     def carPassenger(self, request, pk):
         tripName = self.get_object()
-        carPassenger = tripName.CarPassenget_set.filter(active=True)
+        carPassenger = tripName.CarPassenger_set.filter(active=True)
         return Response(CarPassengerSerializers(carPassenger, many=True).data)
 
 
-class CarPassengerViewSet(viewsets.ViewSet, generics.ListAPIView):
+class CarPassengerViewSet(viewsets.ViewSet, generics.RetrieveAPIView, generics.ListAPIView):
     queryset = CarPassenger.objects.filter(active=True)
     serializer_class = CarPassengerSerializers
+    permission_classes = [permissions.IsAuthenticated]
 
 
 class CargoVehiclesViewSet(viewsets.ViewSet, generics.ListAPIView):
